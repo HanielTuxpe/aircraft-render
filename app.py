@@ -26,30 +26,29 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Obtener los datos del JSON
-        data = request.get_json()
-        engine_power = float(data['engine_power'])
-        max_speed = float(data['max_speed'])
-        cruise_speed = float(data['cruise_speed'])
-        landing_distance = float(data['landing_distance'])
-        empty_weight = float(data['empty_weight'])
-        length = float(data['length'])
-
-        # Crear DataFrame
-        data_df = pd.DataFrame(
-            [[engine_power, max_speed, cruise_speed, landing_distance, empty_weight, length]],
-            columns=['engine_power', 'max_speed', 'cruise_speed', 'landing_distance', 'empty_weight', 'length']
-        )
-
-        # Escalar y predecir
-        scaled_df = x_scaler.transform(data_df)
-        app.logger.debug(f"Datos escalados: {scaled_df}")
+        # Obtener los datos del formulario
+        engine_power = float(request.form['engine_power'])
+        max_speed = float(request.form['max_speed'])
+        cruise_speed = float(request.form['cruise_speed'])
+        landing_distance = float(request.form['landing_distance'])
+        empty_weight = float(request.form['empty_weight'])
+        length = float(request.form['length'])
         
-        prediction = model.predict(scaled_df)
-        app.logger.debug(f"Predicción cruda: {prediction}")
-        prediction_original = price_scaler.inverse_transform([[prediction[0]]])[0][0]
-        app.logger.debug(f"Predicción original: {prediction_original}")
+        data_df = pd.DataFrame(
+            [[engine_power, max_speed, cruise_speed,landing_distance, empty_weight, length]],
+            columns=['engine_power', 'max_speed', 'cruise_speed','landing_distance', 'empty_weight', 'length'])
 
+        # Escalar los datos de entrada
+        scaled_df = x_scaler.transform(data_df)
+        app.logger.debug(f"DataFrame escalado: {scaled_df}")
+        # # Realizar la predicción
+        prediction = model.predict(scaled_df)
+        app.logger.debug(f"Predicción (escalada): {prediction}")
+        
+        prediction_original = price_scaler.inverse_transform([[prediction[0]]])[0][0]
+        app.logger.debug(f"Predicción: {prediction_original}")
+
+        # Devolver el resultado como JSON
         return jsonify({'price': float(prediction_original)})
 
     except Exception as e:
