@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Predicción de Precio de Aeronave</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Predicción de Precio de Aeronave</h1>
+        <form id="formulario">
+            <label for="engine_power">Potencia del motor:</label>
+            <input type="number" id="engine_power" name="engine_power" step="any" required />
+
+            <label for="max_speed">Velocidad máxima:</label>
+            <input type="number" id="max_speed" name="max_speed" step="any" required />
+
+            <label for="cruise_speed">Velocidad crucero:</label>
+            <input type="number" id="cruise_speed" name="cruise_speed" step="any" required />
+
+            <label for="landing_distance">Distancia de aterrizaje:</label>
+            <input type="number" id="landing_distance" name="landing_distance" step="any" required />
+
+            <label for="empty_weight">Peso vacío:</label>
+            <input type="number" id="empty_weight" name="empty_weight" step="any" required />
+
+            <label for="length">Longitud:</label>
+            <input type="number" id="length" name="length" step="any" required />
+
+            <button type="submit">Predecir</button>
+        </form>
+        <p id="resultado"></p>
+    </div>
+</body>
+
+</html>
