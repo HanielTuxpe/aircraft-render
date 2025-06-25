@@ -9,6 +9,13 @@
 </head>
 
 <body>
+    <div class="sky">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        <div class="cloud cloud4"></div>
+        <img src="{{ url_for('static', filename='plane1.png') }}" class="plane" id="plane" />
+    </div>
     <div class="container">
         <h1>Predicción de Precio de Aeronave</h1>
         <form id="formulario">
@@ -34,6 +41,7 @@
         </form>
         <p id="resultado"></p>
     </div>
+    <div class="city" id="city"></div>
 </body>
-
+<script src="{{ url_for('static', filename='city.js') }}" defer></script>
 </html>

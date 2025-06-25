@@ -28,3 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const plane = document.getElementById("plane");
+
+    // Animar el avión cada 5 segundos
+    setInterval(() => {
+        plane.style.transition = "none";
+        plane.style.right = "-450px";
+
+        setTimeout(() => {
+            plane.style.transition = "right 4s linear";
+            plane.style.right = "110%";
+        }, 100);
+    }, 5000);
+});
